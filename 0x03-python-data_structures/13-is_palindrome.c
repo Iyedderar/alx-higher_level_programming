@@ -1,54 +1,35 @@
 #include "lists.h"
-
+#include<stdio.h>
 /**
- * strleng - Returns the length of a string.
- * @s: The string to be measured.
+ * is_palindrome - Checks if a singly linked list is a palindrome.
+ * @head: A pointer to the head of the linked list.
  *
- * Return: The length of the string.
+ * Return: If the linked list is not a palindrome - 0.
+ *         If the linked list is a palindrome - 1.
  */
-int strleng(char *s)
+int is_palindrome(listint_t **head)
 {
-	int len = 0;
+	int list_len = 0, i;
+	listint_t *tmp = *head, *v;
 
-	if (*(s + len))
-	{
-		len++;
-		len += strleng(s + len);
-	}
-
-	return (len);
-}
-
-
-/**
- * is_symmetric - Checks if a string is symteric.
- * @s: The str to be checked.
- * @len: The length.
- *
- * Return: If the number is symteric - 1.
- *         If the number is not symteric- 0.
- */
-int is_symmetric(char *s, int len)
-{
-	if (len == 0 || len == 1)
+	if (*head == NULL || (*head)->next)
 		return (1);
 
-	if (*s == *(s + (len - 1)))
-		return (1 && is_symmetric(s + 1, len - 2));
-	else
-		return (0);
-}
-
-/**
- * is_palindrome - Checks if a string is palindrome.
- * @s: The string tobe checked.
- *
- * Return: If the integer is not palindrome - 0.
- *         If the number is palindrome - 1.
- */
-int is_palindrome(char *s)
-{
-	int len = strleng(s);
-
-	return (is_symmetric(s, len));
+	while (tmp != NULL)
+	{
+		list_len++;
+		tmp = tmp->next;
+	}
+	tmp = *head;
+	while (list_len > 1)
+	{
+		v = *head;
+		for (i = 0; i < list_len - 1; i++)
+			v = v->next;
+		if (tmp->n != v->n)
+			return (0);
+		list_len--;
+		tmp = tmp->next;
+	}
+	return (1);
 }
